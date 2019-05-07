@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			html,body,p,div{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background-color: #f1f1f1;
+			}
+			canvas{
+				background-color: #fff;
+			}
+			div{
+				width: 500px;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				/* position: relative; */
+			}
+			p{
+				margin: 0;
+				display: inline-block;
+				width: 45px;
+				height: 25px;
+				background: lightpink;
+				border-radius: 5px;
+				position: absolute;
+				left: 250px;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			toDataURL()	生成base64的图片路径
+			clearRect()	清除矩形(参数分别为: X轴坐标, Y轴坐标, 宽度, 高度)
+		
+		-->
+		<canvas width="500" height="500">
+			您的浏览器不支持canvas
+		</canvas>
+		<img src="" />
+		<div>
+			<button>清除</button>
+			<input type="color" name="" id="" value="" />
+			<input type="range" max="30" name="" id="" value="" />
+			<p></p>
+		</div>
+		
+		<script>
+			
+			window.onload = function(){
+				
+				var myCanvas = document.getElementsByTagName("canvas")[0];	//画布
+				var oImg = document.getElementsByTagName("img")[0];	//图片
+				var oBtn = document.getElementsByTagName("button")[0];	//清除按钮
+				var myColor = document.querySelector("[type=color]");	//颜色选择器
+				var myRange = document.querySelector("[type=range]");	//笔触宽度
+				var eraser = document.querySelector("p");	//橡皮擦
+				
+				// 1.创建画布
+				var ctx = myCanvas.getContext("2d");
+				
+				// 颜色改变事件
+				myColor.onchange = function(){
+					
+					color = this.value;
+					
+					// 设置笔触颜色
+					ctx.strokeStyle = color;
+					
+				}
+				
+				// 笔触宽度改变事件
+				myRange.onchange = function(){
+					
+					// 设置笔触宽度
+					ctx.lineWidth = this.value;
+					
+				}
+				
+				// 2.绑定鼠标按下事件
+				myCanvas.onmousedown = function(ev){
+					
+					var ev = ev || window.event;
+					
+					// 3.获取鼠标按下的坐标
+					var oMouseX = ev.pageX - myCanvas.offsetLeft;
+					var oMouseY = ev.pageY - myCanvas.offsetTop;
+					
+					// 4.开始路径绘制
+					ctx.beginPath();
+					
+					// 5.将该坐标设置为起始坐标
+					ctx.moveTo(oMouseX,oMouseY);
+					
+					// 6.绑定鼠标移动事件
+					document.onmousemove = function(ev){
+						
+						var ev = ev || window.event;
+						
+						// 7.获取鼠标移动到的坐标
+						var MX = ev.pageX - myCanvas.offsetLeft;
+						var MY = ev.pageY - myCanvas.offsetTop;
+						
+						// 8.lineTo到坐标
+						ctx.lineTo(MX,MY);
+						
+						// 9.绘制线条
+						ctx.stroke();
+						
+					}
+					
+					// 10.绑定鼠标松开事件
+					myCanvas.onmouseup = function(){
+						
+						// 11.关闭路径
+						ctx.closePath();
+						
+						// 12.取消鼠标移动事件
+						document.onmousemove = null;
+						
+						// 13.生成图片路径
+						var oSrc = myCanvas.toDataURL();	//转为base64格式的图片路径
+						
+						// 14.将路径赋值给oImg
+						oImg.src = oSrc;
+						
+						// 15.绑定清除按钮
+						oBtn.onclick = function(){
+							
+							// 16.清除矩形内容(X轴坐标,Y轴坐标,宽度,高度)
+							ctx.clearRect(0,0,myCanvas.offsetWidth,myCanvas.offsetHeight);
+							
+						}
+						
+						// 16.绑定橡皮擦功能
+						eraser.onmousedown = function(ev){
+							
+							var ev = ev || window.event;
+							
+							eraser.onmousemove = function(ev){
+								
+								// 17.获取鼠标位置
+								var oMx = ev.pageX - myCanvas.offsetLeft - eraser.offsetWidth/2;
+								var oMy = ev.pageY - myCanvas.offsetTop - eraser.offsetHeight/2;
+								
+								eraser.style.left = oMx+"px";
+								eraser.style.top = oMy+"px";
+								
+								// 18.擦除对应区域的矩形
+								ctx.clearRect(oMx,oMy,eraser.offsetWidth,eraser.offsetHeight);
+								
+							}
+							eraser.onmouseup = function(){
+								
+								eraser.onmousemove = null;
+								eraser.style.left = "250px";
+								eraser.style.top = "506px";
+							
+							}
+							
+						}
+						
+					}
+					
+				}
+				
+			}
+			
+		</script>
+	</body>
+</html>
