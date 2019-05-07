@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width; initial-scale=1; user-scalable=no" />
+		<link rel="stylesheet" href="../../css/iconfont.css">
+		<style>
+			html,body,div,ul,li,span,img,p,input{margin: 0; padding: 0;}
+			ul,li{list-style: none;}
+			header{
+				height: 60px;
+				background: #000;
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 10;
+				color: #fff;
+				text-align: center;
+				line-height: 60px;
+				font-size: 20px;
+			}
+			.product_list{
+				margin-top: 60px;
+				width: 50%;
+				padding: 0 5px;
+				box-sizing: border-box;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-between;
+			}
+			.product_list li{
+				width: 32%;
+				height: 186px;
+				padding: 3px;
+				box-sizing: border-box;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				position: relative;
+				background: #fff;
+				margin-bottom: 5px;
+				border: 1px solid #ccc;
+			}
+			.product_list li>div:nth-child(1){
+				width: 100%;
+				height: 114px;
+			}
+			.product_list li>div:nth-child(1) img{
+				width: 100%;
+				height: 100%;
+			}
+			.product_list li>div:nth-child(2){
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				font-size: 12px;
+				color: #333;
+				flex: 1;
+			}
+			.product_list li>div:nth-child(2) p:nth-child(1){
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+			}
+			.product_list li>div:nth-child(2) p:nth-child(2){
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.product_list li>div:nth-child(2) p:nth-child(2) span:nth-child(1){
+				font-size: 14px;
+				color: #FF1F32;
+			}
+			.product_list li>div:nth-child(2) p:nth-child(2) span:nth-child(1) del{
+				color: #666;
+				font-size: 12px;
+				margin-left: 8px;
+			}
+			.product_list li>div:nth-child(2) p:nth-child(2) span:nth-child(2){
+				display: inline-block;
+				width: 23px;
+				height: 23px;
+				text-align: center;
+				line-height: 25px;
+				color: #fff;
+				background: #FF1F32;
+				border-radius: 50%;
+				font-size: 13px;
+			}
+			.product_list li>p{
+				font-size: 12px;
+				background: #FF1F32;
+				color: #fff;
+				border-top-right-radius: 15px;
+				border-bottom-right-radius: 15px;
+				padding-left: 3px;
+				position: absolute;
+				top: 50%;
+				left: 0;
+			}
+			.content{
+				display: flex;
+				justify-content: space-around;
+			}
+			.shopping_cart{
+				margin-top: 60px;
+				width: 45%;
+			}
+			.shopping_cart>.basket{
+				border: 1px solid #ccc;
+				display: flex;
+				flex-direction: column;
+				padding-top: 15px;
+				height: 600px;
+				overflow-y: auto;
+			}
+			.basket>li{
+				height: 80px;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				margin-bottom: 15px;
+			}
+			.basket>li>img{
+				/* width: 120px; */
+				height: 100%;
+			}
+			.basket>li>span:nth-of-type(1){
+				display: inline-block;
+				width: 200px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		</style>
+		<script src="../../js/ajax.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<header>拖拽购物车</header>
+			<div class="content">
+				<ul class="product_list"></ul>
+				<div class="shopping_cart">
+					<h3>购物车</h3>
+					<ul class="basket"></ul>
+				</div>
+			</div>
+		</div>
+		
+		<script src="../../js/renderWatson.js"></script>
+		
+	</body>
+</html>

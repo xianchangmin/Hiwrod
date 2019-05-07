@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			body{
+				background: #f0f0f0;
+			}
+			canvas{
+				background: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas width="500" height="500">
+			您的浏览器不支持canvas
+		</canvas>
+		
+		<script>
+			
+			window.onload = function(){
+				
+				var myCanvas = document.getElementsByTagName("canvas")[0];
+				var timer = null;
+				
+				// 1.创建画布
+				var ctx = myCanvas.getContext("2d");
+				
+				var x = 0;
+				var y = 0;
+				
+				// 2.绘制矩形
+				ctx.fillRect(x,y,100,100);
+				
+				// 3.设置定时器移动
+				timer = setInterval(function(){
+					
+					// 4.清空画布
+					ctx.clearRect(0,0,myCanvas.offsetWidth,myCanvas.offsetHeight);
+					
+					// 5.判断方向
+					if(x<myCanvas.offsetWidth-100 && y==0){	//向右走
+						x++;
+					}else if(x==myCanvas.offsetWidth-100 && y<myCanvas.offsetHeight-100 ){	//向下走
+						y++;
+					}else if(x>0 && y==myCanvas.offsetHeight-100){	//向左走
+						x--;
+					}else{	//向上走
+						y--;
+					}
+					ctx.fillRect(x,y,100,100);
+				},5);
+				
+			}
+			
+		</script>
+	</body>
+</html>
